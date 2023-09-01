@@ -1,0 +1,99 @@
+
+import java.util.Scanner;
+import java.util.Random;
+/**
+ * @author 6226504
+ * Title:Challenge2: CoronaVaccine
+ * Semester: Spring 2023 -- COP2210
+ * Prof. Charters & UTA Armani Weise
+ * Description:
+ * This program simulates a Hangman game where the word is selected from 5 different cases at random and then you are asked
+ * to guess  eventually once you finish you are asked if you want to keep playing if you dont want to keep playing then it
+ * summarizes your results
+
+ */
+public class PlayGame {
+    public static Scanner scnr = new Scanner(System.in);
+    private static int gamesWon = 0;
+    private static int gamesLost = 0;
+
+    /**
+     * Main function that creates aGame and then states the toString and begins the game and processes the input
+     * and also determiens the winnera and ends with an initlization if they want to play or not
+     * if they state "false" then the loop ends and the results of how many wins and losses they hae are stated
+     * @param args
+     */
+        public static void main(String[] args) {
+            boolean playAgain = true;
+            Scanner scnr = new Scanner(System.in);
+            do {
+                HangMan aGame = new HangMan();
+                System.out.println(aGame);
+                processGuesses(aGame);
+                determineWinner(aGame);
+                System.out.println("Play again? (true or false)");
+                boolean play = scnr.nextBoolean();
+                if (!play) {
+                    playAgain = false;
+                    summarize();
+                }
+            } while (playAgain);
+        }
+
+    /**
+     * The total guesses allowed are the length of the word taken from the random selection * 3
+     * The guess amount starts at 0 and after every guess goes up in value and while the value is less than or equal to the
+     * guess total the program will keep running guesses
+     *
+     *
+     * @param aGame
+     */
+    public static void processGuesses(HangMan aGame) {
+int GuessTotal = 3 * aGame.getSecretWord().length();
+int numGuess = 0;
+while (numGuess <= GuessTotal){
+    System.out.println("Your total guesses allowed are equal to the length of the word x3 :). ");
+    System.out.println("Guess a Letter: ");
+    String guess = scnr.nextLine();
+    char guessChar = guess.charAt(0);
+    String newGuess = "";
+    for(int i = 0; i < aGame.getSecretWord().length(); i++) {
+        if (aGame.getSecretWord().charAt(i) == guessChar) {
+            newGuess += guessChar;
+        }else{
+            newGuess += aGame.getUsersGuess().charAt(i);
+        }
+    }
+    aGame.setUsersGuess((newGuess));
+    System.out.println(aGame);
+    if(newGuess.equalsIgnoreCase(aGame.getSecretWord())){
+        break;
+    }
+    numGuess++;
+}
+    }
+
+    public static void determineWinner(HangMan aGame) {
+
+        if (aGame.getUsersGuess().equalsIgnoreCase(aGame.getSecretWord())) {
+            System.out.println("Congratulations, you guessed the word!");
+            gamesWon++;
+        } else {
+            System.out.println("You didnt guess the word. Try one last time!: ");
+            String guess = scnr.nextLine();
+            if (guess.equalsIgnoreCase(aGame.getSecretWord())) {
+                System.out.println("You got it!");
+                gamesWon++;
+            } else {
+                System.out.println("Sorry you didnt get it, the word was: " + aGame.getSecretWord());
+                gamesLost++;
+            }
+        }
+    }
+            public static void summarize() {
+                System.out.println("Games won: " + gamesWon);
+                System.out.println("Games lost: " + gamesLost);
+            }
+        }
+
+
