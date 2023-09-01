@@ -1,0 +1,68 @@
+import java.util.Random;
+public class HangMan {
+    private String secretWord;
+    private String usersGuess;
+// Pretty standard construction of an object, HIDDEN VARIABLES AS SPECIFIED IN THE RUBRIC
+
+    /**
+     * This random pics a number between 1-5 for wordToBeat and then from there has an assignment to secretWord based
+     * off the number, after it converts the characters all into _ for the user to see and guess with
+     */
+    public HangMan() {
+        Random random = new Random();
+        this.secretWord = secretWord;
+        this.usersGuess = "";
+        int WordToBeat = random.nextInt(1, 5);
+        switch (WordToBeat) {
+            case 1:
+                secretWord = "spaghetti";
+                break;
+            case 2:
+                secretWord = "lampppost";
+                break;
+
+            case 3:
+                secretWord = "garguantuan";
+                break;
+
+            case 4:
+                secretWord = "forklift";
+                break;
+
+            case 5:
+                secretWord = "automobile";
+                break;
+
+        }
+        for (int i = 0; i < secretWord.length(); i++) {
+            usersGuess += "_";
+        }
+    }
+
+    /**
+     * Setters and gettors here :)
+     * @return
+     */
+    public String getSecretWord() {
+        return secretWord;
+    }
+
+    public String getUsersGuess() {
+        return usersGuess;
+    }
+
+    public void setSecretWord(String secretWord) {
+        this.secretWord = secretWord;
+    }
+    public void setUsersGuess(String usersGuess){
+        this.usersGuess = usersGuess;
+    }
+
+    /**
+     * toString that serves to remind the user of the length of the word every time the hangman object is called
+     * @return
+     */
+    public String toString(){
+        return  "This is length of the word: " + usersGuess;
+    }
+}
